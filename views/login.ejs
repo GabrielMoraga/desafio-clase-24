@@ -1,0 +1,14 @@
+<%- include("template/head", {titulo: 'Login'}) %>
+<body>
+    <h1 class="text-center">Inicia sesión</h1>
+    <div class="container mt-5" style="max-width: 800px;" >
+        <form class="text-center" action="/login" method="post" autocomplete="off">
+            <div class="form-group container-sm">
+                <label for="nombre">Ingrese su nombre</label>
+                <input id="nombre" class="form-control mt-2" type="text" name="nombre" required>
+            </div>
+            <button class="btn btn-primary mt-3">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
