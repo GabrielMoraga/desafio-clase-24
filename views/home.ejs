@@ -1,5 +1,12 @@
 <%- include("template/head", {titulo: 'Home'}) %>
 <body>
-    <h1 class="text-center">Bienvenido <%= nombre %></h1>
+    <div class="container mt-3">
+        <h1 class="alert alert-success">
+            Bienvenido <%= nombre %>
+                <button class="btn btn-warning float-end mt-2" onclick="location.href='/logout'">
+                    Desloguear
+                </button>
+        </h1>
+    </div>
 </body>
 </html>

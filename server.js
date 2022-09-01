@@ -40,17 +40,28 @@ app.use(session({
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 
+
+// AUTH Middleware
+function webAuth(req, res, next) {
+    console.log(req.session?.nombre)
+    if (req.session?.nombre) {
+        next()
+    } else {
+        res.redirect('/login')
+    }
+}
+
 /* ------------------------------------------------*/
 /*                   Endpoints                     */
 /* ------------------------------------------------*/
 
-app.get('/', (req,res) => {
+app.get('/home', webAuth , (req,res) => {
+    res.render('home', {nombre: req.session.nombre})
 })
 
 app.get('/login', (req,res) => {
-    const nombre = req.session?.nombre
-    if (nombre) {
-        res.redirect('/')
+    if (req.session?.nombre) {
+        res.redirect('home')
     } else {
         res.render("login");
     }
@@ -69,16 +80,17 @@ app.post('/login', (req,res) => {
 
 app.get('/logout', (req,res) => {
     const nombre = req.session?.nombre
+    console.log(nombre)
     if (nombre) {
         req.session.destroy(err => {
             if (!err) {
-                res.render(path.join(process.cwd(), '/views/logout.ejs'), { nombre })
+                res.render("logout", {nombre})
             } else {
-                res.redirect('/')
+                res.redirect('/home')
             }
         })
     } else {
-        res.redirect('/')
+        res.redirect('/home')
     }
 })
 
